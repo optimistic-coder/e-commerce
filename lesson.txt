@@ -1,0 +1,8 @@
+leassons
+
+1. add env in project (process.env) also handle erros
+2. create common function for try catch like    "backend/middleware/catchAsyncErros"
+3. create common message for Erros Like    "backend/middleware/erros.js"
+4. create class for pagination filter and for search like
+   "backend/utils/apifeatures"
+5. create utils try to take common like response or errors
