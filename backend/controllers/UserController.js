@@ -5,10 +5,13 @@ const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail.js");
 const crypto = require("crypto")
 exports.registerUser = CatchAsyncErros(async (req, res, next) => {
-    const { name, email, password } = req.body
+    const { name, email, password,role } = req.body
     
    const user = await User.create({
-        name, email, password,
+       name,
+       email,
+       role,
+       password,
         avatar: {
             public_id: "this id",
             url:"url"

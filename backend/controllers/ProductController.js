@@ -17,24 +17,39 @@ exports.createProduct = CatchAsyncErros(async (req, res) => {
 
   }
 });
+// Get All Product (Admin)
+exports.getAdminProducts = CatchAsyncErros(async (req, res, next) => {
+  const products = await Product.find();
 
+  res.status(200).json({
+    success: true,
+    products,
+  });
+});
 // //get all products
 exports.getAllProduct = CatchAsyncErros(async (req, res) => {
-  const resultPerPage = 5;
-  const productCount = await Product.countDocuments()
-  const apifeatures = new ApiFeatures(Product.find(),req.query).search().filter().pagination(resultPerPage)
+  const resultPerPage = 8;
+  const productsCount = await Product.countDocuments();
 
-  const products = await apifeatures.query
+  const apiFeature =await new ApiFeatures( Product.find(), req.query)
+    .search()
+    .filter();
 
-  if (products) {
-    res.json({
-      success: true,
-      products,
-      productCount
-    })
-  } else {
-    res.send("something went wrong")
-  }
+  let products = await apiFeature.query;
+
+  let filteredProductsCount = products.length;
+
+  apiFeature.pagination(resultPerPage);
+
+
+  res.status(200).json({
+    success: true,
+    products,
+    productsCount,
+    resultPerPage,
+    filteredProductsCount,
+  });
+
 });
 
 
